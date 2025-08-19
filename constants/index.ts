@@ -1,3 +1,5 @@
+import { Explora } from "next/font/google";
+
 export const subjects = [
   "maths",
   "language",
@@ -6,6 +8,13 @@ export const subjects = [
   "coding",
   "economics",
 ];
+
+export const navItems = [
+  "Home",
+  "Companion",
+  "My Progress",
+
+]
 
 export const subjectsColors = {
   science: "#E5D0FF",
