@@ -17,7 +17,6 @@ import React, { useState } from 'react'
 import { Input } from './ui/input'
 import Link from "next/link"
 
-
 type FormType = "sign-in" | "sign-up"
 
 const authFormSchema = (formType: FormType) => {
@@ -78,9 +77,10 @@ const form = useForm<z.infer<typeof formSchema>>({
     <>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form"></form>
-                <div className="w-82">
-                    <div className="flex flex-col gap-2 w-full">
-                        <h1>{type === "sign-in" ? "Sign In": "Sign Up" }</h1>
+                <div className="w-[480px] text-[#197278]">
+                    <div className="flex flex-col gap-2  w-full border rounded-md bg-white p-10">
+                        <h1 className="">{type === "sign-in" ? "Sign In": "Sign Up" }</h1>
+                       
 
                         {type === "sign-up"  && (
                             <>
@@ -150,15 +150,15 @@ const form = useForm<z.infer<typeof formSchema>>({
                             )}
                         />
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 ">
                             {type === "sign-in" && (<>
                                 <p>No account yet?</p>
-                                <Link href="/sign-up">Register</Link>
+                                <Link href="/sign-up" className="text-[#772e25]">Register</Link>
                             </>)}
 
                             {type === "sign-up" && (<>
                                 <p>Already have account?</p>
-                                <Link href="/sign-in">Login</Link>
+                                <Link href="/sign-in" className="text-[#772e25]">Login</Link>
                             </>)}
                             
                         </div>

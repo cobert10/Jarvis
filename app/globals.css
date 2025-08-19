@@ -136,6 +136,12 @@ body {
   h1 {
     @apply text-3xl font-bold;
   }
+  h2 {
+    @apply text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-bold;
+  }
 }
 
 @layer components {
@@ -212,6 +218,10 @@ body {
   }
   .transcript-fade {
     @apply pointer-events-none absolute bottom-0 left-0 right-0 h-40 max-sm:h-20 bg-gradient-to-t from-background via-background/90 to-transparent z-10;
+  }
+
+  .shad-form-label {
+    @apply py-2 ;
   }
 }
 
