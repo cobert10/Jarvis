@@ -5,7 +5,9 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { Account, Client } from "appwrite";
+
+
 
 
 export const getCurrentUser = async() =>{
@@ -80,6 +82,57 @@ export const verifySecret = async({
     }
 }
 
+
+export const signInUser = async ({
+    email, 
+    password
+  }:{
+    email: string, 
+    password: string
+  }): Promise< | { success: true; accountId: string } | { success: false; error: string } > => {
+    
+  const client = new Client().
+    setProject(appwriteConfig.projectId).
+    setEndpoint(appwriteConfig.endpointUrl)
+    
+  const account = new Account(client);
+  
+    try{
+        const session = await account.createEmailPasswordSession(email, password);
+        
+        if(session){
+        const accountId = await sendEmailOTP( {email} );
+
+        if(!accountId) {
+            return {
+                success: false,
+                error: "Failed to send OTP"
+            };
+        }
+
+            return {
+                success: true, 
+            accountId: parseStringify({accountId})
+            };
+        }
+    }
+
+    catch(error: any){
+        console.error("Sign-in error:", error);
+        
+        return {
+        success: false,
+        error: error?.message || "Unknown error during sign-in",
+        };
+    }
+
+    return {
+        success: false,
+        error: "No session returned from Appwrite"
+    };
+
+};
+
 export const createAccount = async({
     firstName, 
     lastName,
@@ -89,18 +142,22 @@ export const createAccount = async({
 }: {
     firstName: string; 
     lastName: string;
-    birthDate: Date;
+    birthDate?: Date | null ;
     email: string;
     password: string;
 }) => {
-    const existingUser = await getUserByEmail(email);
+    
+    const existingUser = await getUserByEmail(email);    
 
-    const accountId = await sendEmailOTP( {email} );
-    if(!accountId) throw new Error("Failed to send an OTP");
-
-    // create new user with fullname, email, avatar: optional, accountID and unique ID
     if(!existingUser){
-        const { databases } = await createAdminClient();
+        const { databases, account} = await createAdminClient();
+        const newUser = await account.create(
+            ID.unique(),
+            email,
+            password, // handled securely by Appwrite
+            `${firstName} ${lastName}`
+        )
+
         await databases.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
@@ -109,12 +166,16 @@ export const createAccount = async({
                 firstName,
                 lastName,
                 birthDate,
-                email,
-                password,
-                accountId,
+                email: newUser.email,
+                accountId: newUser.$id,
             }
         )
+            const accountId = await sendEmailOTP( {email} );
+            if(!accountId) throw new Error("Failed to send an OTP");
+
+            return parseStringify({accountId})
     }
-    return parseStringify({accountId})
+    
+
 };
 

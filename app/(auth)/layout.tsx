@@ -4,7 +4,7 @@ import React from 'react'
 
 const layout = ({children}: {children: React.ReactNode}) => {
     const words = [
-    { text: "Jarvis", className: "text-[#197278]" },
+    { text: "Jarvis", className: "text-[#197278]"},
     { text: "--" },
     { text: "Your" },
     { text: "Learning" },
@@ -13,7 +13,7 @@ const layout = ({children}: {children: React.ReactNode}) => {
   ];
   return (
     <div className='flex min-h-screen'>
-      <section className='p-10 hidden w-1/2 items-center justify-center lg:flex xl:w-1/3 bg-[#f2e8cf]'>
+      <section className='p-10 hidden w-1/2 items-center justify-center lg:flex xl:w-1/3 bg-[#edddd4]'>
         <div className="flex max-h-[800px] max-w[360px] flex-col justify-center items-center space-y-12">
             <TypewriterEffect words = {words}/>
             <Image src="/images/logo.png" alt="brand" width={200} height={200}></Image>
