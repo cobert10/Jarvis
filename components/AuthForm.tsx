@@ -24,23 +24,24 @@ import { Calendar } from "./ui/calendar"
 import { createAccount } from "@/lib/actions/user.actions"
 import Image from "next/image"
 import OTPModal from "./OTPModal"
-import { signInUser } from "@/lib/actions/user.action.sign-in"
+import { signInUser } from "@/lib/actions/user.actions"
 
 type FormType = "sign-in" | "sign-up"
 
 const authFormSchema = (formType: FormType) => {
   return z.object({
     email: z.string().email(),
-    password: z.string()
+    password: formType == "sign-up"? z.string()
     .min(8, "Password must contain atleast 8 characters")
     .max(32, "Password must not exceed 32 characters")
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")
     .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"): z.string(),
+    
     firstName: formType === "sign-up" ? z.string().min(2).max(50): z.string().optional(),
     lastName: formType === "sign-up" ? z.string().min(2).max(50): z.string().optional(),
-    birthDate: z.date()
+    birthDate: formType === "sign-up" ? z.date(): z.date().optional()
   });
 };
 
@@ -48,11 +49,7 @@ const AuthForm = ({type}: {type: FormType}) => {
 const [isLoading, setIsLoading] = useState(false)
 const [errorMessage, setErrorMessage] = useState('')
 const [accountId, setAccountId] = useState(null)
-
-const [password, setPassword] = useState("")
-
 const [open, setOpen] = useState(false)
-// const [date, setDate] = useState<Date | undefined>(undefined)
 
 const formSchema = authFormSchema(type)
 const form = useForm<z.infer<typeof formSchema>>({
@@ -63,34 +60,37 @@ const form = useForm<z.infer<typeof formSchema>>({
         birthDate: undefined,
         email: "",
         password: "",
-
     },
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("Submit clicked, values:", values);
+    console.log(values)
     setIsLoading(true);
     setErrorMessage("")
-    
+ 
     try{
         let user = null;
         if(type === "sign-up"){
           user = await createAccount({
             firstName: values.firstName || '', 
             lastName: values.lastName || '', 
-            birthDate: values.birthDate || '',
+            birthDate: values.birthDate || null,
             email: values.email,
             password: values.password
           });
         }
-        else if(type == "sign-in"){
+
+        else if(type === "sign-in"){
           user = await signInUser({email:values.email, password:values.password});
+
+          if(!user.success){
+            setErrorMessage(user.error)
+          }
         }
-    
         setAccountId(user.accountId);
       }
       catch {
-        setErrorMessage("failed to create account. Please try again.")
+        setErrorMessage("Email already Exists. Please try again.")
       }
       finally{
         setIsLoading(false);
@@ -139,6 +139,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                         )}
                     />
                   </div>
+
                   <FormField 
                     control = {form.control} 
                     name = "birthDate"
@@ -161,7 +162,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                               <PopoverContent className="w-auto overflow-hidden p-0" align="start">
                                 <Calendar
                                   mode="single"
-                                  selected={field.value}
+                                  selected={field.value?? undefined}
                                   captionLayout="dropdown"
                                   onSelect={(date) => {
                                     field.onChange(date);
@@ -192,6 +193,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <FormMessage className="shad-form-message" />
                 </FormItem>)}
               />
+
               <FormField
                 control={form.control}
                 name="password"
@@ -215,6 +217,10 @@ const form = useForm<z.infer<typeof formSchema>>({
                 {type === "sign-in" ? "Sign In": "Sign Up"}
                 {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin" />)}
               </Button>
+
+              {errorMessage && (
+                <p className="text-red-700"> {errorMessage}</p>
+              )}
 
               <div className="flex gap-2 ">       
                 <p>{type === "sign-in" ? "Don't Have an account?" : "Already have an account?"}</p>

@@ -220,9 +220,35 @@ body {
     @apply pointer-events-none absolute bottom-0 left-0 right-0 h-40 max-sm:h-20 bg-gradient-to-t from-background via-background/90 to-transparent z-10;
   }
 
+
+  .shad-error-message{
+    @apply text-red-700;
+  }
+
   .shad-form-label {
     @apply py-2 ;
   }
+
+  .shad-alert-content{
+    @apply border border-red-900
+  }
+
+  .shad-otp-header{
+    @apply text-2xl text-center text-[#197278];
+  }
+
+  .shad-otp{
+    @apply w-full flex gap-1 sm:gap-2 justify-between rounded-lg;
+  }
+
+ .shad-otp-slot {
+    @apply text-[40px] font-medium rounded-lg justify-center flex border-2 border-white size-12 md:size-16 gap-5;
+  }
+
+  .shad-otp-close-button{
+    @apply absolute -right-1 -top-7 cursor-pointer sm:-right-2 sm:-top-4;
+  }
+  
 }
 
 @layer utilities {
