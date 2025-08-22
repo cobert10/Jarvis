@@ -1,15 +1,12 @@
 'use client'
 
-
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-
 
 import React, { useState } from 'react'
 import Image from 'next/image';
@@ -18,17 +15,7 @@ import { Separator } from "./ui/separator";
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-
-interface Props{
-  $id:string;
-  accountId:string;
-  email:string;
-  fullName:string;
-  avatar:string;
-}
-
-
-
+import { signOutUser } from "@/lib/actions/user.actions";
 
 const MobileNavigation = () => {
 const [open, setOpen] = useState(false);
@@ -51,23 +38,15 @@ const [open, setOpen] = useState(false);
             <SheetHeader>
               <SheetTitle>
                 <div className="header-user">
-                  {/* <Image src={avatar} alt="avatar" width={24} height={24} className="header-user-avatar"/>
-                  <div className="sm:hidden lg:block">
-                    <p className="subtitle-2 capitalize">{fullName}</p>
-                    <p className="caption">{email}</p>
-                  </div> */}
                 </div>
                 <Separator className="mb-4 bg-light-200/20"/>
               </SheetTitle>
               <nav className="mobile-nav">
                 <ul className="mobile-nav-list">
                   {navItems.map((item) => (
-                    // <Link href={item} className="">
                       <li className={cn("mobile-nav-item",  "shad-active")} key={item}>
-                        
                         <p>{item}</p>
                       </li>
-                    // </Link>
                   ))}
                 </ul>
               </nav>
@@ -76,10 +55,10 @@ const [open, setOpen] = useState(false);
             <Separator className="my-2 bg-light-200/20"/>
 
             <div className="flex flex-col justify-between gap-5 absolute bottom-4 left-4 right-4">
-            <Button type="submit" className="mobile-sign-out-button" onClick={async () => await signOutUser()}>
-                <Image src="/icons/logout.svg" alt="logout" width={24} height={24} />
-                <p>Logout</p>
-            </Button>
+              <Button type="submit" className="mobile-sign-out-button" onClick={async() => await signOutUser()}>
+                  <Image src="/icons/logout.svg" alt="logout" width={24} height={24} />
+                  <p>Logout</p>
+              </Button>
             </div>
           </SheetContent>
         </Sheet>

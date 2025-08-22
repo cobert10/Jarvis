@@ -1,6 +1,10 @@
+'use client'
 
+import { navItems } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
+import { signOutUser } from "@/lib/actions/user.actions"
+import { Button } from "./ui/button"
 const Navbar = () => {
   return (
    <nav className="hidden sm:flex items-center justify-between p-4">
@@ -14,10 +18,17 @@ const Navbar = () => {
             />
         </div>
     </Link>
-    <div className="flex items-center gap-8">
-        <p>Home</p>
-        <p>Companion</p>
-        <p>My Progress</p>
+    <div >
+        <ul className="flex items-center gap-8">
+            {navItems.map((item) => (
+                <li className="no-underline " key={item}>{item}</li>
+            ))}
+            <li>
+                <Button type="submit" className="mobile-sign-out-button cursor-pointer bg-transparent hover:bg-white ring-1 text-black" onClick={async() => await signOutUser()}>
+                    <p>Logout</p>
+                </Button>
+            </li>
+        </ul>
     </div>
    </nav>
   )
