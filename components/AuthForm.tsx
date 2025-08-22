@@ -64,7 +64,6 @@ const form = useForm<z.infer<typeof formSchema>>({
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
     setIsLoading(true);
     setErrorMessage("")
  
@@ -87,6 +86,7 @@ const form = useForm<z.infer<typeof formSchema>>({
             setErrorMessage(user.error)
           }
         }
+        
         setAccountId(user.accountId);
       }
       catch {

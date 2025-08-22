@@ -6,6 +6,7 @@ import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
 import { Account, Client } from "appwrite";
+import { redirect } from "next/navigation";
 
 
 
@@ -50,7 +51,6 @@ export const sendEmailOTP = async({email}: {email:string}) => {
     const { account } = await createAdminClient();
     try{
         const session = await account.createEmailToken(ID.unique(), email);
-        
         return session.userId;
     }catch(error){
         handleError(error, "Failed to send email OTP");
@@ -61,13 +61,15 @@ export const verifySecret = async({
         accountId, 
         password,
     }: {
-        accountId: string; 
+        accountId: {accountId: string}; 
         password: string;
     }) =>{
 
     try{
+        
         const { account } = await createAdminClient();
-        const session = await account.createSession(accountId, password);
+        
+        const session = await account.createSession(accountId.accountId, password);
 
         (await cookies()).set('appwrite-session', session.secret, {
             path: '/',
@@ -175,7 +177,17 @@ export const createAccount = async({
 
             return parseStringify({accountId})
     }
-    
-
 };
 
+export const signOutUser = async() => {
+    const { account } = await createSessionClient();
+
+    try{
+        await account.deleteSession('current');
+        (await cookies()).delete("appwrite-session");
+    }catch(error){
+        handleError(error, "Failed to sign out user");
+    } finally{
+        redirect("/sign-in");
+    }
+}
