@@ -39,7 +39,7 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
             
             const sessionId = await verifySecret({accountId, password})
 
-            if(sessionId) router.push("/dashboard/companion");
+            if(sessionId) router.push("/dashboard/companions");
 
         }catch(error){
             setErrorMessage("Failed to verify the OTP")

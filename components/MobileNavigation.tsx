@@ -43,10 +43,12 @@ const [open, setOpen] = useState(false);
               </SheetTitle>
               <nav className="mobile-nav">
                 <ul className="mobile-nav-list">
-                  {navItems.map((item) => (
-                      <li className={cn("mobile-nav-item",  "shad-active")} key={item}>
-                        <p>{item}</p>
+                  {navItems.map(({label, link}) => (
+                    <Link href={link} key={label}>
+                      <li className={cn("mobile-nav-item",  "shad-active")} key={label}>
+                        <p>{label}</p>
                       </li>
+                    </Link>
                   ))}
                 </ul>
               </nav>

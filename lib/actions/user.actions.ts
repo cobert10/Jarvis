@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 
 
 
+
 export const getCurrentUser = async() =>{
     const { database, account } = await createSessionClient();
     
@@ -132,7 +133,6 @@ export const signInUser = async ({
         success: false,
         error: "No session returned from Appwrite"
     };
-
 };
 
 export const createAccount = async({
@@ -191,3 +191,4 @@ export const signOutUser = async() => {
         redirect("/sign-in");
     }
 }
+

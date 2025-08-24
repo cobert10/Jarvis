@@ -20,8 +20,10 @@ const Navbar = () => {
     </Link>
     <div >
         <ul className="flex items-center gap-8">
-            {navItems.map((item) => (
-                <li className="no-underline " key={item}>{item}</li>
+            {navItems.map(({label, link}) => (
+                <Link href={link} key={label}>
+                    <li className="no-underline" >{label}</li>
+                </Link>
             ))}
             <li>
                 <Button type="submit" className="mobile-sign-out-button cursor-pointer bg-transparent hover:bg-white ring-1 text-black" onClick={async() => await signOutUser()}>
