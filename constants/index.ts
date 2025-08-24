@@ -10,10 +10,9 @@ export const subjects = [
 ];
 
 export const navItems = [
-  "Home",
-  "Companion",
-  "My Progress",
-
+  {label: "Home", link: "/dashboard/home"},
+  {label:"Companions",  link: "/dashboard/companions"},
+  {label:"My Progress", link: "/dashboard/my-progress"}
 ]
 
 export const subjectsColors = {

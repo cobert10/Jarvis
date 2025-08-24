@@ -1,7 +1,7 @@
 const DashboardLibrary = () => {
   return (
     <div>
-      dashboard
+      Companions
     </div>
   )
 }

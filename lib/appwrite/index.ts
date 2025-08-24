@@ -5,6 +5,7 @@ import { appwriteConfig } from "./config"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation"
 
+
 export const createSessionClient = async() => {
     const client = new Client()
         .setEndpoint(appwriteConfig.endpointUrl)
@@ -13,7 +14,7 @@ export const createSessionClient = async() => {
     const session = (await cookies()).get('appwrite-session');
 
     if (!session || !session.value) redirect("/sign-in")
-
+    
     client.setSession(session.value)
 
     return {
