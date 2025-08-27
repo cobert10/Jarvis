@@ -13,7 +13,7 @@ interface CompanionCardProps{
 
 const CompanionCard = ({ id, name, topic, subject, duration, color }: CompanionCardProps) => {
   return (
-    <article className="companion-card" style={{ backgroundColor: color }}>
+    <article className="companion-card text-[#F8FAFC]" style={{ background: "linear-gradient(135deg, #1E293B, #334155)" }} >
       <div className="flex justify-between items-center">
         <div className="subject-badge">{subject}</div>
         <button className="companion-bookmark">

@@ -8,12 +8,12 @@ const currentUser = await getCurrentUser();
 if(!currentUser) return redirect("/sign-in");
     return (
     <div>
-        <section className="flex h-full flex-1 flex-col bg-[#f2e8cf]">
+        <section className="flex h-full flex-1 flex-col" style={{ background: "linear-gradient(135deg, #1E293B, #334155)" }}>
             <Navbar></Navbar>
             <MobileNavigation></MobileNavigation>
         </section>
       
-      <div className="main-content">{children}</div>
+      <div className="main-content" >{children}</div>
     </div>
     
   )

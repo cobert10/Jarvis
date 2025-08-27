@@ -22,15 +22,15 @@ interface CompanionsListProps{
 
 const CompanionsList = ({ title, companions, classNames}: CompanionsListProps) => {
   return (
-    <article className={cn('companion-list', classNames)}>
+    <article className={cn('companion-list', classNames)} style={{ background: "linear-gradient(135deg, #1E293B, #334155)" }}>
       <h2 className="font-bold text-3xl">Recent Session</h2>
       <Table>
         
         <TableHeader>
-          <TableRow>
-            <TableHead className="text-lg w-2/3">Lessons</TableHead>
-            <TableHead className="text-lg ">Subject</TableHead>
-            <TableHead className="text-lg">Duration</TableHead>
+          <TableRow className="">
+            <TableHead className="text-lg text-white w-2/3">Lessons</TableHead>
+            <TableHead className="text-lg text-white">Subject</TableHead>
+            <TableHead className="text-lg text-white">Duration</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

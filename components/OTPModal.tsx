@@ -36,11 +36,8 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
         
         try{
             // call api to verify otp
-            
             const sessionId = await verifySecret({accountId, password})
-
             if(sessionId) router.push("/dashboard/companions");
-
         }catch(error){
             setErrorMessage("Failed to verify the OTP")
         }
@@ -56,34 +53,34 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen} >
-        <AlertDialogContent className="shad-alert-content w-[350px]">
-            <AlertDialogHeader className="relative flex justify-center">
+        <AlertDialogContent className="shad-alert-content">
+            <AlertDialogHeader className="shad-alert-header">
             <AlertDialogTitle className="shad-otp-header">Enter your OTP
                 <Image src="/icons/close-dark.svg" alt="close" width={20} height={20} onClick={() => setIsOpen(false)} className="shad-otp-close-button"/>
             </AlertDialogTitle>
-            <AlertDialogDescription className="subtitle-2 text-center text-light-100">
+            <AlertDialogDescription className="shad-alert-dialog">
                 We&apos;ve sent a code to <span className="pl-1 text-brand">{email}</span>
             </AlertDialogDescription>
             </AlertDialogHeader>
             
             <InputOTP maxLength={6} value={password} onChange={setPassword}>
             <InputOTPGroup className="shad-otp">
-                <InputOTPSlot index={0} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
-                <InputOTPSlot index={1} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
-                <InputOTPSlot index={2} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
-                <InputOTPSlot index={3} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
-                <InputOTPSlot index={4} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
-                <InputOTPSlot index={5} className="shad-otp-slot ring-[#197278] text-[#197278] shadow-drop border-2"/>
+                <InputOTPSlot index={0} className="shad-otp-slot"/>
+                <InputOTPSlot index={1} className="shad-otp-slot"/>
+                <InputOTPSlot index={2} className="shad-otp-slot"/>
+                <InputOTPSlot index={3} className="shad-otp-slot"/>
+                <InputOTPSlot index={4} className="shad-otp-slot"/>
+                <InputOTPSlot index={5} className="shad-otp-slot"/>
             </InputOTPGroup>
             </InputOTP>
 
             <AlertDialogFooter>
                 <div className="flex w-full flex-col gap-4">
-                    <AlertDialogAction onClick={handleSubmit} className=" bg-[#197278] hover:bg-[#283d3b] h-12" type="button">Submit {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin "/>)}</AlertDialogAction>
+                    <AlertDialogAction onClick={handleSubmit} className=" bg-brand hover:bg-[#283d3b] h-12" type="button">Submit {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin "/>)}</AlertDialogAction>
                     {errorMessage && (
                         <p className="error-message">{errorMessage}</p>
                     )}
-                    <div className="subtitle mt-2 text-center text-light-100">
+                    <div className="mt-2 text-center ">
                         Didn&apos;t get a code?
                         <Button type = "button" variant="link" className="pl-1 text-red-800" onClick={handleResendOtp}>Click to resend.</Button>
                     </div>

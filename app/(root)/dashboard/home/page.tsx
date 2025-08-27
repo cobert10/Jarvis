@@ -6,8 +6,8 @@ import React from "react"
 
 const home = () => {
   return (
-    <div className="max-w-[1600px] mx-auto px-14 flex flex-col gap-4 pt-10 max-sm:px-2">
-      <h1 className="">Popular Companions</h1>
+    <>
+      <h1 className="text-white">Popular Companions</h1>
       <section className="home-section ">
         <CompanionCard
           id="123"
@@ -43,8 +43,7 @@ const home = () => {
 
         <CTA />
       </section>
-      
-    </div>
+    </>
   )
 }
 
