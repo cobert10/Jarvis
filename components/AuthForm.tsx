@@ -101,7 +101,7 @@ const form = useForm<z.infer<typeof formSchema>>({
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
-          <div className="w-[480px] text-[#197278]">
+          <div className="w-[480px] text-brand">
             <div className="flex flex-col gap-2  w-full border rounded-md bg-white p-10">
               <h1 className="flex justify-center">{type === "sign-in" ? "Sign In": "Sign Up" }</h1>
               {type === "sign-up"  && (
@@ -213,7 +213,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </FormItem>)}
               />
 
-              <Button type="submit" className="bg-[#197278] mt-4 hover:bg-[#283d3b] hover:text-white">
+              <Button type="submit" className="bg-brand mt-4 hover:bg-[#283d3b] hover:text-white">
                 {type === "sign-in" ? "Sign In": "Sign Up"}
                 {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin" />)}
               </Button>

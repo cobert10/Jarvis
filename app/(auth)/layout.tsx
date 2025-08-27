@@ -1,26 +1,26 @@
-import { TypewriterEffect } from '@/components/ui/typewriter-effect'
-import Image from 'next/image'
-import React from 'react'
+import { TypewriterEffect } from "@/components/ui/typewriter-effect"
+import Image from "next/image"
+import React from "react"
 
 const layout = ({children}: {children: React.ReactNode}) => {
     const words = [
-    { text: "Jarvis", className: "text-[#197278]"},
-    { text: "--" },
-    { text: "Your" },
-    { text: "Learning" },
-    { text: "AI" },
-    { text: "Companion" },
+    { text: "Jarvis", className: "text-brand"},
+    { text: "--", className: "text-white"},
+    { text: "Your", className: "text-white" },
+    { text: "Learning", className: "text-white" },
+    { text: "AI" , className: "text-white"},
+    { text: "Companion", className: "text-white" },
   ];
   return (
-    <div className='flex min-h-screen'>
-      <section className='p-10 hidden w-1/2 items-center justify-center lg:flex xl:w-1/3 bg-[#edddd4]'>
+    <div className="flex min-h-screen">
+      <section className="brand-layout">
         <div className="flex max-h-[800px] max-w[360px] flex-col justify-center items-center space-y-12">
             <TypewriterEffect words = {words}/>
             <Image src="/images/logo.png" alt="brand" width={200} height={200}></Image>
         </div>
       </section>
 
-      <section className='bg-[#772e25] flex flex-col flex-1 items-center justify-center lg:p-2 lg:py-0'>
+      <section className="sign-in-up-layout">
         {children}
       </section>
       
