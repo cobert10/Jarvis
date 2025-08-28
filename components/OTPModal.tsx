@@ -53,12 +53,12 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen} >
-        <AlertDialogContent className="shad-alert-content">
+        <AlertDialogContent className="shad-alert-content bg-gradient-to-r from-slate-800 to-slate-700 shadow-xl border-0">
             <AlertDialogHeader className="shad-alert-header">
             <AlertDialogTitle className="shad-otp-header">Enter your OTP
                 <Image src="/icons/close-dark.svg" alt="close" width={20} height={20} onClick={() => setIsOpen(false)} className="shad-otp-close-button"/>
             </AlertDialogTitle>
-            <AlertDialogDescription className="shad-alert-dialog">
+            <AlertDialogDescription className="shad-alert-dialog !text-white">
                 We&apos;ve sent a code to <span className="pl-1 text-brand">{email}</span>
             </AlertDialogDescription>
             </AlertDialogHeader>
@@ -76,11 +76,11 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
 
             <AlertDialogFooter>
                 <div className="flex w-full flex-col gap-4">
-                    <AlertDialogAction onClick={handleSubmit} className=" bg-brand hover:bg-[#283d3b] h-12" type="button">Submit {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin "/>)}</AlertDialogAction>
+                    <AlertDialogAction onClick={handleSubmit} className=" bg-brand hover:bg-[#1e775c] h-12" type="button">Submit {isLoading && (<Image src="/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin "/>)}</AlertDialogAction>
                     {errorMessage && (
                         <p className="error-message">{errorMessage}</p>
                     )}
-                    <div className="mt-2 text-center ">
+                    <div className="mt-2 text-center text-white">
                         Didn&apos;t get a code?
                         <Button type = "button" variant="link" className="pl-1 text-red-800" onClick={handleResendOtp}>Click to resend.</Button>
                     </div>

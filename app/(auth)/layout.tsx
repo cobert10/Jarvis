@@ -4,7 +4,7 @@ import React from "react"
 
 const layout = ({children}: {children: React.ReactNode}) => {
     const words = [
-    { text: "Jarvis", className: "text-brand"},
+    { text: "Jarvis", className: "!text-brand"},
     { text: "--", className: "text-white"},
     { text: "Your", className: "text-white" },
     { text: "Learning", className: "text-white" },

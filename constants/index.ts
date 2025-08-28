@@ -24,10 +24,23 @@ export const subjectsColors = {
   Economics: "#C8FFDF",
 };
 
-export const voices = {
-  male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
-  female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
-};
+// export const voices = {
+//   male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
+//   female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },
+// };
+
+export const voices = [
+  "Arnold Schwarzenegger",
+  "Morgan Freeman",
+  "Donald Trump"
+]
+
+export const teaching_style = [
+  "College Professor",
+  "Casual",
+  "Expert",
+  "Tell it like I'm 5 years old"
+]
 
 export const recentSessions = [
   {
