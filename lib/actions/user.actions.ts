@@ -5,8 +5,9 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 import { cookies } from "next/headers";
-import { Account, Client } from "appwrite";
+import { Account, Client, Models } from "appwrite";
 import { redirect } from "next/navigation";
+
 
 
 
@@ -98,13 +99,17 @@ export const signInUser = async ({
     setProject(appwriteConfig.projectId).
     setEndpoint(appwriteConfig.endpointUrl)
     
-  const account = new Account(client);
+    const account = new Account(client);
   
     try{
         const session = await account.createEmailPasswordSession(email, password);
         
+        // Delete imediately the created session since a new session one will be created ONCE OTP has been sent.
+        const { users } = await createAdminClient();
+        await users.deleteSession(session.userId, session.$id);
+        
         if(session){
-        const accountId = await sendEmailOTP( {email} );
+            const accountId = await sendEmailOTP( {email} );
 
         if(!accountId) {
             return {
@@ -192,3 +197,62 @@ export const signOutUser = async() => {
     }
 }
 
+export const createCompanion = async({
+    name,
+    subject,
+    topic,
+    voice,
+    style,
+    duration
+}:{
+    name: string,
+    subject: string,
+    topic: string,
+    voice: string,
+    style: string,
+    duration: number
+}) =>{
+
+    const { database } = await createSessionClient();
+    try{
+        const companion = await database.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.companionCollectionId,
+            ID.unique(),
+            {
+                name,
+                subject,
+                topic,
+                voice,
+                style,
+                duration
+            }
+        )
+        return companion
+    } catch (error) {
+        console.error("Error creating companion:", error);
+    }
+   
+}
+
+
+export const isUserAuthenticated = async (): Promise<boolean> => {
+    const client = new Client()
+        .setEndpoint(appwriteConfig.endpointUrl) 
+        .setProject(appwriteConfig.projectId);
+
+    const account = new Account(client);
+    
+    try {
+        const user: Models.User<Models.Preferences> = await account.get();
+        console.log("User is logged in:", user);
+        return true;
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+        console.warn("User not authenticated:", error.message);
+        } else {
+        console.warn("User not authenticated:", error);
+        }
+        return false;
+    }
+}

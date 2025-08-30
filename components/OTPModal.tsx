@@ -19,7 +19,7 @@ import {
 import Image from "next/image"
 import React, { useState } from "react"
 import { Button } from "./ui/button"
-import { verifySecret, sendEmailOTP } from "@/lib/actions/user.actions"
+import { verifySecret, sendEmailOTP, signOutUser } from "@/lib/actions/user.actions"
 import { useRouter } from "next/navigation"
 
 const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: string;}) => {
@@ -29,6 +29,8 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
+
+
     const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement>) =>{
         e.preventDefault();
         setIsLoading(true);
@@ -37,7 +39,7 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
         try{
             // call api to verify otp
             const sessionId = await verifySecret({accountId, password})
-            if(sessionId) router.push("/dashboard/companions");
+            if(sessionId) router.push("/dashboard/home");
         }catch(error){
             setErrorMessage("Failed to verify the OTP")
         }
@@ -56,7 +58,14 @@ const OTPModal = ({accountId, email}: {accountId: {accountId: string}; email: st
         <AlertDialogContent className="shad-alert-content bg-gradient-to-r from-slate-800 to-slate-700 shadow-xl border-0">
             <AlertDialogHeader className="shad-alert-header">
             <AlertDialogTitle className="shad-otp-header">Enter your OTP
-                <Image src="/icons/close-dark.svg" alt="close" width={20} height={20} onClick={() => setIsOpen(false)} className="shad-otp-close-button"/>
+                <Image src="/icons/close-dark.svg" 
+                    alt="close" 
+                    width={20} 
+                    height={20} 
+                    onClick={async() => {
+                        setIsOpen(false);
+                    }}
+                    className="shad-otp-close-button"/>
             </AlertDialogTitle>
             <AlertDialogDescription className="shad-alert-dialog !text-white">
                 We&apos;ve sent a code to <span className="pl-1 text-brand">{email}</span>

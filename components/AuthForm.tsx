@@ -103,7 +103,7 @@ const form = useForm<z.infer<typeof formSchema>>({
         <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
           <div className="w-[480px] text-brand">
             <div className="flex flex-col gap-2  w-full border rounded-md bg-white p-10">
-              <h1 className="flex justify-center">{type === "sign-in" ? "Sign In": "Sign Up" }</h1>
+              <h1 className="flex justify-center text-black">{type === "sign-in" ? "Sign In": "Sign Up" }</h1>
               {type === "sign-up"  && (
                 <>
                   <div className="flex flex-row justify-between">

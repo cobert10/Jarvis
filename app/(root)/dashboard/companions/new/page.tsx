@@ -1,6 +1,6 @@
 import CompanionForm from "@/components/CompanionForm"
 
-const NewCompanion = () => {
+const NewCompanion = async () => {
   return (
     <main className="companion-builder-section">
       <article className="w-full gap-4 flex flex-col">
