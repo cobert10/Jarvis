@@ -51,14 +51,3 @@ export const createAdminClient = async() => {
         }
     }
 }
-
-// export const createSessionUser = async() =>{
-//     const client = new Client()
-//         .setEndpoint(appwriteConfig.endpointUrl) 
-//         .setProject(appwriteConfig.projectId);
-//     return {
-//         get account(){
-//             return new Account(client)
-//         },
-//     }
-// }

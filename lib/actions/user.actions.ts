@@ -104,7 +104,8 @@ export const signInUser = async ({
     try{
         const session = await account.createEmailPasswordSession(email, password);
         
-        // Delete imediately the created session since a new session one will be created ONCE OTP has been sent.
+        // Delete session immediately since a new session will be created ONCE OTP has been sent.
+        // For the purpose of checking user credentials
         const { users } = await createAdminClient();
         await users.deleteSession(session.userId, session.$id);
         
