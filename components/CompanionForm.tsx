@@ -28,6 +28,10 @@ import { Input } from "./ui/input"
 import { subjects, teaching_style, voices } from "@/constants"
 import { Textarea } from "./ui/textarea"
 
+import { createCompanion } from "@/lib/actions/user.actions"
+
+import { useRouter } from 'next/navigation';
+
 const formSchema = z.object({
   name: z.string().min(1,  {message: 'Companion name is required.'}),
   subject: z.string().min(1,  {message: 'Subject is required.'}),
@@ -38,7 +42,7 @@ const formSchema = z.object({
 })
 
 const CompanionForm = () => {
-    
+  const router = useRouter();  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues:{
@@ -51,8 +55,23 @@ const CompanionForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companion = await createCompanion({
+        name: values.name,
+        subject: values.subject,
+        topic: values.topic,
+        voice: values.voice,
+        style: values.style,
+        duration: values.duration
+    });
+
+
+    if(companion){
+        router.push(`/dashboard/companions/${companion.$id}`)
+    }
+    else{
+        console.log("Failed to create a new companion")
+    }
   }
 
   return (
