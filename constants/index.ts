@@ -1,6 +1,7 @@
 import { Explora } from "next/font/google";
 
 export const subjects = [
+  "all",
   "maths",
   "language",
   "science",

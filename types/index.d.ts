@@ -1,10 +1,3 @@
-// type User = {
-//   name: string;
-//   email: string;
-//   image?: string;
-//   accountId: string;
-// };
-
 enum Subject {
   maths = "maths",
   language = "language",
@@ -34,6 +27,16 @@ interface CreateCompanion {
   style: string;
   duration: number;
 }
+
+type Companion = Models.Document & {
+    $id: string;
+    name: string;
+    topic: string;
+    subject: string;
+    duration: number;
+    voice: string;
+    style: string;
+};
 
 interface GetAllCompanions {
   limit?: number;

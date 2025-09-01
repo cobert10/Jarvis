@@ -8,11 +8,6 @@ import { cookies } from "next/headers";
 import { Account, Client, Models } from "appwrite";
 import { redirect } from "next/navigation";
 
-
-
-
-
-
 export const getCurrentUser = async() =>{
     const { database, account } = await createSessionClient();
     
@@ -28,7 +23,6 @@ export const getCurrentUser = async() =>{
 
     return parseStringify(user.documents[0]);
 }
-
 
 const getUserByEmail = async (email: string) => {
     const { databases } = await createAdminClient();
