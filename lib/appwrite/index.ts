@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation"
 
 
+
 export const createSessionClient = async() => {
     const client = new Client()
         .setEndpoint(appwriteConfig.endpointUrl)
@@ -49,5 +50,17 @@ export const createAdminClient = async() => {
         get users(){
             return new Users(client);
         }
+    }
+}
+
+export const createAppwrieDbClient = async() => {
+    const client = new Client()
+    .setEndpoint(appwriteConfig.endpointUrl)
+    .setProject(appwriteConfig.projectId)
+
+    return {
+        get databases(){
+            return new Databases(client);
+        },
     }
 }
