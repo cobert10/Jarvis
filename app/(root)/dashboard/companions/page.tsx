@@ -12,7 +12,6 @@ const page = async ({ searchParams}: SearchParams) => {
     const subject = filters.subject? filters.subject : '';
     const topic = filters.topic? filters.topic: '';
     const companions = await getAllCompanions({subject, topic})
-    
     return (
         <>
             <section className="flex justify-between w-full max-sm:flex-col">

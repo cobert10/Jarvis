@@ -16,7 +16,6 @@ const CTA = () => {
           </Link>
         </button>
       </div>
-    
   )
 }
 
