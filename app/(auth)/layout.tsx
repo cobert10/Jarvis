@@ -19,11 +19,9 @@ const layout = ({children}: {children: React.ReactNode}) => {
             <Image src="/images/logo.png" alt="brand" width={200} height={200}></Image>
         </div>
       </section>
-
       <section className="sign-in-up-layout">
         {children}
       </section>
-      
     </div>
   )
 }

@@ -12,11 +12,8 @@ if(!currentUser) return redirect("/sign-in");
             <Navbar></Navbar>
             <MobileNavigation></MobileNavigation>
         </section>
-      
       <div className="main-content" >{children}</div>
     </div>
-    
   )
 }
-
 export default layout
