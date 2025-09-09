@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react"
 
 interface CompanionCardProps{
-  id: string;
+  $id: string;
   name: string;
   topic: string;
   subject: string;
@@ -11,7 +11,7 @@ interface CompanionCardProps{
   color: string;
 }
 
-const CompanionCard = ({ id, name, topic, subject, duration, color }: CompanionCardProps) => {
+const CompanionCard = ({ $id, name, topic, subject, duration, color }: CompanionCardProps) => {
   return (
     <article className="companion-card text-[#F8FAFC]" style={{ background: "linear-gradient(135deg, #1E293B, #334155)" }} >
       <div className="flex justify-between items-center">
@@ -26,8 +26,8 @@ const CompanionCard = ({ id, name, topic, subject, duration, color }: CompanionC
         <Image src="/icons/clock.svg" alt="duration" width={14} height={14}></Image>
         <p>{duration} mins</p>
       </div>
-      <Link href={`/companions/${id}`} key={id} className="w-full">
-        <button className="btn-primary w-full justify-center"> Lunch Lesson</button>
+      <Link href={`/dashboard/companions/${$id}`} key={$id} className="w-full">
+        <button className="btn-primary w-full justify-center">Lunch Lesson</button>
       </Link>
     </article>
   )

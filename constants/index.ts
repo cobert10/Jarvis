@@ -17,12 +17,12 @@ export const navItems = [
 ]
 
 export const subjectsColors = {
-  Science: "#E5D0FF",
-  Maths: "#FFDA6E",
-  Language: "#BDE7FF",
-  Coding: "#FFC8E4",
-  History: "#FFECC8",
-  Economics: "#C8FFDF",
+  science: "#E5D0FF",
+  maths: "#FFDA6E",
+  language: "#BDE7FF",
+  coding: "#FFC8E4",
+  history: "#FFECC8",
+  economics: "#C8FFDF",
 };
 
 // export const voices = {

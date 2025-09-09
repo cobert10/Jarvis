@@ -76,7 +76,6 @@ export const getAllCompanions = async ({
              return { data: query.documents, error: null };
         }
         else if(topic){
-            console.log("deputa")
             const query: Models.DocumentList<Companion> = await databases.listDocuments(
             appwriteConfig.databaseId,
             appwriteConfig.companionCollectionId,
@@ -100,7 +99,23 @@ export const getAllCompanions = async ({
     }catch (err: any){
         return {data:null, error:null}
     }
-
-
 }
 
+export const getCompanion = async (id:string) => {
+    const { databases } = await createAppwrieDbClient(); 
+    try{
+        const query:  Models.DocumentList<Companion> = await databases.listDocuments(
+                appwriteConfig.databaseId,
+                appwriteConfig.companionCollectionId,
+                [
+                    Query.equal('$id', id)
+                ]
+        ) 
+        
+        
+        return query.documents[0]
+    }catch(err:any){
+        return {data:null, error: null}
+    }
+
+}

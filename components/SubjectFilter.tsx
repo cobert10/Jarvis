@@ -34,7 +34,7 @@ const SubjectFilter = () => {
   },[searchQuery, router ,searchParams, pathname]);
   
   return (
-    <Select
+    <Select 
         onValueChange = {setSearchQuery}
         value = {searchQuery}
     >
